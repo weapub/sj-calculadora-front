@@ -1,4 +1,3 @@
-// 📡 Archivo de conexión a la API (Render / Local)
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 async function handleResponse(res) {
@@ -9,14 +8,11 @@ async function handleResponse(res) {
   return res.json();
 }
 
-// ==========================
-// 🧾 PROVEEDORES
-// ==========================
+// PROVEEDORES
 export async function getProveedores() {
   const res = await fetch(`${API_URL}/proveedores`);
   return handleResponse(res);
 }
-
 export async function addProveedor(data) {
   const res = await fetch(`${API_URL}/proveedores`, {
     method: "POST",
@@ -26,15 +22,12 @@ export async function addProveedor(data) {
   return handleResponse(res);
 }
 
-// ==========================
-// 🧮 PRODUCTOS
-// ==========================
+// PRODUCTOS
 export async function getProductos(query) {
   const q = query ? `?q=${encodeURIComponent(query)}` : "";
   const res = await fetch(`${API_URL}/productos${q}`);
   return handleResponse(res);
 }
-
 export async function addProducto(data) {
   const res = await fetch(`${API_URL}/productos`, {
     method: "POST",
@@ -42,8 +35,4 @@ export async function addProducto(data) {
     body: JSON.stringify(data),
   });
   return handleResponse(res);
-}
-
-export function getApiUrl() {
-  return API_URL;
 }
