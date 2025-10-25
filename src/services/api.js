@@ -1,49 +1,49 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+// 📡 Archivo de conexión a la API (Render / Local)
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
+async function handleResponse(res) {
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Error ${res.status}: ${text}`);
+  }
+  return res.json();
+}
+
+// ==========================
+// 🧾 PROVEEDORES
+// ==========================
 export async function getProveedores() {
   const res = await fetch(`${API_URL}/proveedores`);
-  return res.json();
+  return handleResponse(res);
 }
 
 export async function addProveedor(data) {
   const res = await fetch(`${API_URL}/proveedores`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
   });
-  return res.json();
+  return handleResponse(res);
 }
 
-export async function updateProveedor(id, data) {
-  const res = await fetch(`${API_URL}/proveedores/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  return res.json();
-}
-
-export async function deleteProveedor(id) {
-  const res = await fetch(`${API_URL}/proveedores/${id}`, { method: 'DELETE' });
-  return res.json();
-}
-
-export async function getProductoPorCodigo(codigo) {
-  const res = await fetch(`${API_URL}/productos/${codigo}`);
-  if (!res.ok) throw new Error('not found');
-  return res.json();
-}
-
-export async function searchProductos(q) {
-  const res = await fetch(`${API_URL}/productos?q=${encodeURIComponent(q)}`);
-  return res.json();
+// ==========================
+// 🧮 PRODUCTOS
+// ==========================
+export async function getProductos(query) {
+  const q = query ? `?q=${encodeURIComponent(query)}` : "";
+  const res = await fetch(`${API_URL}/productos${q}`);
+  return handleResponse(res);
 }
 
 export async function addProducto(data) {
   const res = await fetch(`${API_URL}/productos`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
   });
-  return res.json();
+  return handleResponse(res);
+}
+
+export function getApiUrl() {
+  return API_URL;
 }

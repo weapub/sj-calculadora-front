@@ -1,14 +1,21 @@
-import React from 'react';
-import CalculadoraPreciosWeb from './components/CalculadoraPreciosWeb.jsx';
-import BuscadorProductos from './components/BuscadorProductos.jsx';
+import React, { useEffect, useState } from "react";
+import Sidebar from "./components/Sidebar.jsx";
+import ProveedorForm from "./components/ProveedorForm.jsx";
+import ProductoForm from "./components/ProductoForm.jsx";
 
 export default function App() {
+  const [active, setActive] = useState(() => localStorage.getItem("panel-active") || "productos");
+  useEffect(() => { localStorage.setItem("panel-active", active); }, [active]);
+
   return (
-    <div style={{maxWidth: 900, margin: '30px auto'}}>
-      <h1 style={{textAlign:'center'}}>🧮 Sistema de Gestión de Precios</h1>
-      <CalculadoraPreciosWeb />
-      <hr style={{ margin: '30px 0', opacity: .2 }} />
-      <BuscadorProductos />
+    <div className="min-h-screen bg-slate-950 text-slate-100">
+      <div className="flex">
+        <Sidebar active={active} onSelect={setActive} />
+        <main className="flex-1 p-6">
+          {active === "productos" && <ProductoForm />}
+          {active === "proveedores" && <ProveedorForm />}
+        </main>
+      </div>
     </div>
   );
 }

@@ -1,23 +1,19 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "vite.config.js",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "env": {
-    "VITE_API_URL": "https://sj-calculadora.onrender.com"
-  },
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+<<<<<<< HEAD
 <<<<<<< HEAD
   "framework": "vite",
   "rootDirectory": "frontend"
 =======
   "framework": "vite"
 >>>>>>> 03e06f24ed3c65c18e68f5c2cfdd5bd3cf39ecf9
+=======
+  "installCommand": "npm install",
+  "framework": "vite",
+  "env": {
+    "VITE_API_URL": "https://sj-calculadora.onrender.com"
+  }
+>>>>>>> d9150ea07ec8b84606921a1dac07e8e67f99987e
 }
