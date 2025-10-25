@@ -1,38 +1,37 @@
-const API_URL = import.meta.env.VITE_API_URL || "https://sj-calculadora-backend.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL;
 
-async function handleResponse(res) {
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Error ${res.status}: ${text}`);
-  }
+// 🧾 Obtener proveedores
+export async function fetchProveedores() {
+  const res = await fetch(`${API_URL}/proveedores`);
+  if (!res.ok) throw new Error("Error al cargar proveedores");
   return res.json();
 }
 
-// PROVEEDORES
-export async function getProveedores() {
-  const res = await fetch(`${API_URL}/proveedores`);
-  return handleResponse(res);
-}
+// ➕ Agregar proveedor
 export async function addProveedor(data) {
   const res = await fetch(`${API_URL}/proveedores`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return handleResponse(res);
+  if (!res.ok) throw new Error("Error al guardar proveedor");
+  return res.json();
 }
 
-// PRODUCTOS
-export async function getProductos(query) {
-  const q = query ? `?q=${encodeURIComponent(query)}` : "";
-  const res = await fetch(`${API_URL}/productos${q}`);
-  return handleResponse(res);
+// 🧾 Obtener productos
+export async function fetchProductos() {
+  const res = await fetch(`${API_URL}/productos`);
+  if (!res.ok) throw new Error("Error al cargar productos");
+  return res.json();
 }
+
+// ➕ Agregar producto
 export async function addProducto(data) {
   const res = await fetch(`${API_URL}/productos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  return handleResponse(res);
+  if (!res.ok) throw new Error("Error al guardar producto");
+  return res.json();
 }
