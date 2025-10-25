@@ -14,6 +14,10 @@
   },
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+<<<<<<< HEAD
   "framework": "vite",
   "rootDirectory": "frontend"
+=======
+  "framework": "vite"
+>>>>>>> 03e06f24ed3c65c18e68f5c2cfdd5bd3cf39ecf9
 }
